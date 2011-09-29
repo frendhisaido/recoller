@@ -76,7 +76,7 @@ public class RecollerServlet extends HttpServlet {
 						System.out.println("User: " + getTagValue("name",eElement));
 						System.out.println("");*/
 						//assign ke objek string dulu baru ditaro di parameter apa langsung aja??
-						StoreTweet.storeTweet(getTagValue("published", eElement), getTagValue("name",eElement), getTagValue("title", eElement));
+						StoreTweet.storeTweet(getTagValue("name", eElement), getTagValue("published",eElement), getTagValue("title", eElement));
 						
 					}		
 			}

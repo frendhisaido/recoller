@@ -34,11 +34,11 @@ public class StoreTweet {
 	static int tweetCounter = 0;
 	static int failedPersist = 0;
 	
-	static void storeTweet(String time, String author, String content){
+	static void storeTweet(String author, String time, String content){
 		try{
-		Entity oneTweet = new Entity ("Tweet", content);
+		Entity oneTweet = new Entity ("Author", author);
 		oneTweet.setProperty("Time", time);
-		oneTweet.setProperty("Author", author);
+		oneTweet.setProperty("Content", content);
 		Util.persistEntity(oneTweet);
 		tweetCounter++;
 		} catch (Exception e) {
