@@ -50,13 +50,13 @@ public class RecollerServlet extends HttpServlet {
 		/**
 		 * Jelas butuh errorHandler dan Logger disini
 		 * query search twitternya memfilter hanya dari lokasi radius 200 mil dari bandung
-		 * dan mengambil tweet terkini
+		 * dan mengambil tweet terkini dan terpopuler
 		 * dengan 100 tweet yang ditampilkan.
 		 */
 		try{
 			//URL sourceURL = new URL("http://api.twitter.com/1/lists/statuses.xml?slug=barito&owner_screen_name=robotodon");
 			//URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi");	
-			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi&result_type=recent&rpp=100");
+			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi&result_type=mixed&rpp=100");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(new InputSource(sourceURL.openStream()));
