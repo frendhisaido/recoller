@@ -8,10 +8,26 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Recoller</servlet-name>
 		<servlet-class>com.recoller.appengine.RecollerServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>InfoServlet</servlet-name>
+		<servlet-class>com.recoller.appengine.InfoServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Recoller</servlet-name>
 		<url-pattern>/recoller</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InfoServlet</servlet-name>
+		<url-pattern>/info</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+        <web-resource-collection>
+            <url-pattern>/recoller/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

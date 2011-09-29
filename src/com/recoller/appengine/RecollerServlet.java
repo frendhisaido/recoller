@@ -28,31 +28,35 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class RecollerServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(RecollerServlet.class.getCanonicalName());
+	static int callCount = 0;
+	static int failedFetch = 0;
 	
-	private static int fetchCounter = 0;
-	private static int failedFetch = 0;
 	
 	/**
 	 * doGet() otomatis dipanggil saat RecollerServlet direquest,
 	 * Jadi dipake buat ngeinvoke fetchTweet 
-	 * dan menampilkan langsung jumlah tweet yang udah difetch.
+	 * variabel callCount : counter berapa kali servlet ini dipanggil
+	 * variabel failedFetch : counter berapa kali proses fetch gagal
 	 * Agak ragu untuk fetchCounter apakah harus dari objek int atau ambil count dari datastore;
 	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/plain");
 		fetchTweet();
-		resp.getWriter().println("Tweet fetched: "+ fetchCounter);
+		callCount++;
 	}
 	
-	private static int fetchTweet(){
+	private static void fetchTweet(){
 		/**
 		 * Jelas butuh errorHandler dan Logger disini
-		 * 
+		 * query search twitternya memfilter hanya dari lokasi radius 200 mil dari bandung
+		 * dan mengambil tweet terkini
+		 * dengan 100 tweet yang ditampilkan.
 		 */
 		try{
 			//URL sourceURL = new URL("http://api.twitter.com/1/lists/statuses.xml?slug=barito&owner_screen_name=robotodon");
-			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi");	
+			//URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi");	
+			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi&result_type=recent&rpp=100");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(new InputSource(sourceURL.openStream()));
@@ -71,9 +75,9 @@ public class RecollerServlet extends HttpServlet {
 						System.out.println("location: "+ getTagValue("location",eElement));
 						System.out.println("User: " + getTagValue("name",eElement));
 						System.out.println("");*/
-						
+						//assign ke objek string dulu baru ditaro di parameter apa langsung aja??
 						StoreTweet.storeTweet(getTagValue("published", eElement), getTagValue("name",eElement), getTagValue("title", eElement));
-						fetchCounter++;
+						
 					}		
 			}
 			
@@ -81,11 +85,9 @@ public class RecollerServlet extends HttpServlet {
 
 		} catch (Exception e){
 			e.printStackTrace();
-		    logger.log(Level.INFO, "Gagal Fetch");
+		    logger.log(Level.INFO, "Gagal Fetch dari RecollerServlet");
 		    failedFetch++;
-		    return failedFetch;
 		}
-		return fetchCounter;
 	}
 	
 	private static String getTagValue(String sTag, Element eElement) {

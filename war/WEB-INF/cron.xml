@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/recoller</url>
+    <description>Tarik tweet setiap 10 menit</description>
+    <schedule>every 10 minutes from 18:00 to 24:00</schedule>
+    <timezone>Asia/Jakarta</timezone>
+  </cron>
+</cronentries>

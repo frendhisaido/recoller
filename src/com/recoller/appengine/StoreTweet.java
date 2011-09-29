@@ -1,5 +1,8 @@
 package com.recoller.appengine;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.appengine.api.datastore.Entity;
 /*import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
@@ -10,7 +13,7 @@ import java.util.List;
 
 /**
  * Kelas ini menghandle persist data tweet. 
- * fungsi storeTweet() menghandle parameter yang diberikan
+ * fungsi storeTweet() menghandle parameter yang dipakai di RecollerServlet
  * lalu dilempar ke persistEntity() milik kelas Util
  * @author frendhisaidodanaro
  *
@@ -18,14 +21,31 @@ import java.util.List;
 
 public class StoreTweet {
 	/**
-	 * oneTweet() dipanggil berulang2 di fetchTweet
+	 * storeTweet() dipanggil berulang2 di fetchTweet
+	 * tweetCounter di increment disini 
+	 * untuk menghitung berapa tweet yang sudah diproses untuk dipersist
+	 * jadi tweetCounter tidak selalu merepresentasikan 
+	 * jumlah tweet yang sudah berhasil dipersist
 	 * @param
 	 */
-	public static void storeTweet(String time, String author, String content){
+
+	private static final Logger logger = Logger.getLogger(StoreTweet.class.getCanonicalName());
+	
+	static int tweetCounter = 0;
+	static int failedPersist = 0;
+	
+	static void storeTweet(String time, String author, String content){
+		try{
 		Entity oneTweet = new Entity ("Tweet", content);
 		oneTweet.setProperty("Time", time);
 		oneTweet.setProperty("Author", author);
 		Util.persistEntity(oneTweet);
+		tweetCounter++;
+		} catch (Exception e) {
+			e.printStackTrace();
+		    logger.log(Level.INFO, "Gagal persist di StoreTweet");
+		    failedPersist++;
+		}
 	}
 
 }
