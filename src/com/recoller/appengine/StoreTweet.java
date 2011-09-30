@@ -31,20 +31,18 @@ public class StoreTweet {
 
 	private static final Logger logger = Logger.getLogger(StoreTweet.class.getCanonicalName());
 	
-	static int tweetCounter = 0;
-	static int failedPersist = 0;
 	
 	static void storeTweet(String author, String time, String content){
 		try{
-		Entity oneTweet = new Entity ("Author", author);
+		Entity oneTweet = new Entity ("tweet");
+		oneTweet.setProperty("Author", author);
 		oneTweet.setProperty("Time", time);
 		oneTweet.setProperty("Content", content);
 		Util.persistEntity(oneTweet);
-		tweetCounter++;
+		InfoServlet.tweetCounter++;
 		} catch (Exception e) {
 			e.printStackTrace();
 		    logger.log(Level.INFO, "Gagal persist di StoreTweet");
-		    failedPersist++;
 		}
 	}
 

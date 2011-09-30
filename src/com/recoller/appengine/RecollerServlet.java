@@ -28,8 +28,6 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class RecollerServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(RecollerServlet.class.getCanonicalName());
-	static int callCount = 0;
-	static int failedFetch = 0;
 	
 	
 	/**
@@ -43,7 +41,7 @@ public class RecollerServlet extends HttpServlet {
 			throws IOException {
 		resp.setContentType("text/plain");
 		fetchTweet();
-		callCount++;
+		InfoServlet.callCount++;
 	}
 	
 	private static void fetchTweet(){
@@ -86,7 +84,6 @@ public class RecollerServlet extends HttpServlet {
 		} catch (Exception e){
 			e.printStackTrace();
 		    logger.log(Level.INFO, "Gagal Fetch dari RecollerServlet");
-		    failedFetch++;
 		}
 	}
 	
