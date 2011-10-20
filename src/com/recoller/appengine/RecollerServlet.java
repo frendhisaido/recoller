@@ -41,7 +41,7 @@ public class RecollerServlet extends HttpServlet {
 			throws IOException {
 		resp.setContentType("text/plain");
 		fetchTweet();
-		InfoServlet.callCount++;
+		//InfoServlet.callCount++;
 	}
 	
 	private static void fetchTweet(){
@@ -54,7 +54,7 @@ public class RecollerServlet extends HttpServlet {
 		try{
 			//URL sourceURL = new URL("http://api.twitter.com/1/lists/statuses.xml?slug=barito&owner_screen_name=robotodon");
 			//URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi");	
-			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,150mi&result_type=mixed&rpp=100");
+			URL sourceURL = new URL("http://search.twitter.com/search.atom?&geocode=-6.945512,107.597351,100mi&include_entities=true&result_type=mixed&rpp=100");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(new InputSource(sourceURL.openStream()));
@@ -74,7 +74,9 @@ public class RecollerServlet extends HttpServlet {
 						System.out.println("User: " + getTagValue("name",eElement));
 						System.out.println("");*/
 						//assign ke objek string dulu baru ditaro di parameter apa langsung aja??
-						StoreTweet.storeTweet(getTagValue("name", eElement), getTagValue("published",eElement), getTagValue("title", eElement));
+						StoreTweet.storeTweet(getTagValue("name", eElement),
+								getTagValue("published",eElement), getTagValue("title", eElement),
+								getTagValue("google:location", eElement));
 						
 					}		
 			}

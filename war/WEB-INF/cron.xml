@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
-  <cron>
-    <url>/recoller</url>
-    <description>Tarik tweet setiap 10 menit</description>
-    <schedule>every 10 mins from 11:00 to 15:00</schedule>
-  </cron>
+	<cron>
+		<url>/recoller</url>
+		<schedule>every 30 minutes</schedule>
+		<description>Fetch Tweets dari jam 00:47 Tanggal 21-Oktober-2011 setiap 30 menit 100 tweet</description>
+	</cron>
 </cronentries>

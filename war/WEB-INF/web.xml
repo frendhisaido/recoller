@@ -20,6 +20,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>InfoServlet</servlet-name>
 		<url-pattern>/info</url-pattern>
 	</servlet-mapping>
+	<servlet>
+  		<servlet-name>remote-api</servlet-name>
+  		<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+  		<servlet-name>remote-api</servlet-name>
+  		<url-pattern>/remote_api</url-pattern>
+	</servlet-mapping>
 	<security-constraint>
         <web-resource-collection>
             <url-pattern>/recoller/*</url-pattern>

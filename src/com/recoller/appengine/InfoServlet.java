@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class InfoServlet extends HttpServlet {
-    static int tweetCounter;
-	static int callCount;
+    //static int tweetCounter;
+	//static int callCount;
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("text/plain");
-		resp.getWriter().println("Tweet stored : " + tweetCounter);
-		resp.getWriter().println("Recoller Called: " + callCount);
+		//resp.getWriter().println("Tweet stored : " + tweetCounter);
+		//resp.getWriter().println("Recoller Called: " + callCount);
 	}
 
 	

@@ -11,10 +11,10 @@ import java.util.logging.Logger;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-
-/*
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+
+/*
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -35,15 +35,23 @@ public class Util {
  * fungsi persistEntity step akhir di program setelah selanjutnya diurus sama API datastore
  * @param entity : object entity yang akan di persist
  */
-static void persistEntity(Entity entity) {
+	public static void persistEntity(Entity entity) {
 	logger.log(Level.INFO, "Saving entity");
 	try{
-	datastore.put(entity);
-	}catch (Exception e){
-		e.printStackTrace();
-		logger.log(Level.INFO,"Gagal di persist di Datastore");
+		datastore.put(entity);
+		}catch (Exception e){
+			e.printStackTrace();
+			logger.log(Level.INFO,"Gagal di persist di Datastore");
+		}
 	}
-}
+
+	public static Entity findEntity(Key key) {
+		try{
+			return datastore.get(key);
+		}catch (EntityNotFoundException e) {
+			return null;
+		}
+	}
 
 
 /**
